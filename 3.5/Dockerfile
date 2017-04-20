@@ -30,6 +30,7 @@ LABEL summary="$SUMMARY" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,python,python35,rh-python35"
 
+RUN rpm --rebuilddb; yum install -y yum-plugin-ovl
 RUN yum install -y centos-release-scl-rh && \
     yum-config-manager --enable centos-sclo-rh-testing && \
     INSTALL_PKGS="rh-python35 rh-python35-python-devel rh-python35-python-setuptools rh-python35-python-pip \
