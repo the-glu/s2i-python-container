@@ -31,17 +31,17 @@ LABEL summary="$SUMMARY" \
       io.openshift.tags="builder,python,python35,rh-python35"
 
 RUN rpm --rebuilddb; yum install -y yum-plugin-ovl
-RUN yum install -y centos-release-scl-rh; yum install -y centos-release-scl-rh; \
+RUN rpm --rebuilddb; yum install -y centos-release-scl-rh; yum install -y centos-release-scl-rh; \
     yum-config-manager --enable centos-sclo-rh-testing && \
     INSTALL_PKGS="rh-python35 rh-python35-python-devel rh-python35-python-setuptools rh-python35-python-pip \
 	 nss_wrapper httpd24 httpd24-httpd-devel httpd24-mod_ssl httpd24-mod_auth_kerb httpd24-mod_ldap \
          httpd24-mod_session atlas-devel gcc-gfortran libffi-devel libtool-ltdl" && \
-    yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus $INSTALL_PKGS && \
-    rpm -V $INSTALL_PKGS && \
+    rpm --rebuilddb; yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus $INSTALL_PKGS ; yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus $INSTALL_PKGS ; \
+    rpm --rebuilddb; rpm -V $INSTALL_PKGS ; rpm -V $INSTALL_PKGS ; \
     # Remove centos-logos (httpd dependency, ~20MB of graphics) to keep image
     # size smaller.
-    rpm -e --nodeps centos-logos && \
-    yum clean all -y
+    rpm --rebuilddb; rpm -e --nodeps centos-logos ; rpm -e --nodeps centos-logos ; \
+     rpm --rebuilddb; yum clean all -y ; yum clean all -y ; true
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH.
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
