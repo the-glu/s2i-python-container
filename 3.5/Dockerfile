@@ -31,7 +31,7 @@ LABEL summary="$SUMMARY" \
       io.openshift.tags="builder,python,python35,rh-python35"
 
 RUN rpm --rebuilddb; yum install -y yum-plugin-ovl
-RUN yum install -y centos-release-scl-rh && \
+RUN yum install -y centos-release-scl-rh; yum install -y centos-release-scl-rh; \
     yum-config-manager --enable centos-sclo-rh-testing && \
     INSTALL_PKGS="rh-python35 rh-python35-python-devel rh-python35-python-setuptools rh-python35-python-pip \
 	 nss_wrapper httpd24 httpd24-httpd-devel httpd24-mod_ssl httpd24-mod_auth_kerb httpd24-mod_ldap \
